@@ -1,2 +1,1 @@
-/home/tyler/ProTodo.cpp
-/home/tyler/README.md
+/home/tyler/ProTodo/README.md
