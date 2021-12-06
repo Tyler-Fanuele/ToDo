@@ -41,6 +41,18 @@ void print_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vec
 	}
 }
 
+void print_help()
+{
+	cout << "ToDo list tool" << endl;
+	cout << "By Tyler Fanuele" << endl;
+	cout << endl << "-o \"filename\" -> tells ToDo where to output." << endl;;
+	cout << endl << "-e \"filename\" -> tells ToDo where in your directory" << endl <<
+		"                 the exception file is." << endl;
+        cout << endl << "-l            -> lists the full paths of every file in your current direcory." << endl;
+	cout << endl << "-L \"filename\" -> lists the full paths of every file in the argument specified "
+		<< "directory." << endl;
+}
+
 int main(int argc, char** argv)
 {
 
@@ -71,7 +83,7 @@ int main(int argc, char** argv)
 	//TODO!! add exception files
 	
 	
-	while((opt = getopt(argc, argv, "o:e:lL:")) != -1)
+	while((opt = getopt(argc, argv, "o:e:lL:h")) != -1)
 	{
 		switch(opt)
 		{
@@ -79,6 +91,9 @@ int main(int argc, char** argv)
 				cout << error_message("Unknown option given") << endl;
 				return -1;
 				break;
+			case 'h':
+				print_help();
+				return 0;
 			case 'o':
 				if(optarg == input_file_string)
 				{
