@@ -7,10 +7,10 @@ existing code and making a todo list for unfinished tasks.
 ## Adding the ToDo tool to your Path
 ### Linux:
 1. Run ***"make && sudo ./setup"***  in console to add the program to the Path.
-2. See the Using Todo tool section for instructions on program comments.
+2. See the Using the Todo tool section for instructions on program comments.
 3. Run the program with command ***"todo"*** to make a todo list of your current path.
 
-## Using ToDo tool
+## Using the ToDo tool
 1. ToDo comments:
 	1. Comment "//TODO! 'user message'" for a low priority todo.
 	2. Comment "//TODO!! 'user message'" for a mid priority todo.
@@ -25,3 +25,6 @@ existing code and making a todo list for unfinished tasks.
 	- This example would produce a todo list with the default output file name.
 - $ todo -o output.todo
 	- This example would produce a todo list with "output.todo" as the output file.
+- $ todo -i /foo
+	- This example would produce a todo list from the directory /foo 
+	and output to the default file
