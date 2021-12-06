@@ -105,10 +105,10 @@ $ todo -L /bar/foo
 
 ### Exception file example:
 
-/usr/foo/bar.txt
-/usr/foo/lar.cpp
-/usr/foo/kar.cpp
-/usr/foo/lak.c
-/usr/foo/p.h
+/usr/foo/bar.txt  
+/usr/foo/lar.cpp  
+/usr/foo/kar.cpp  
+/usr/foo/lak.c  
+/usr/foo/p.h  
  
 
