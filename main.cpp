@@ -74,17 +74,19 @@ int main(int argc, char** argv)
 	vector<string> directory_vector;
 	
 	//TODO!! add exception files
-
+	
+	/*
 	for(const auto& file : filesystem::directory_iterator(working_dir))
 	{
 		directory_vector.push_back(file.path());
 	}
-
+	
 	if(directory_vector.size() < 1)
 	{
 		cout << error_message("Empty directory or no good items!") << endl;
 		return -1;
 	}
+	*/
 	
 	/*
 	for(auto each : directory_vector)
@@ -96,7 +98,7 @@ int main(int argc, char** argv)
 	
 	
 	
-	while((opt = getopt(argc, argv, "o:")) != -1)
+	while((opt = getopt(argc, argv, "o:i:")) != -1)
 	{
 		switch(opt)
 		{
@@ -112,9 +114,23 @@ int main(int argc, char** argv)
 				}
 				output_file_string = optarg;
 				break;
-
+			case 'i':
+				working_dir = optarg;
+				break;
 		}
 	}
+	
+	for(const auto& file : filesystem::directory_iterator(working_dir))
+	{
+		directory_vector.push_back(file.path());
+	}
+	
+	if(directory_vector.size() < 1)
+	{
+		cout << error_message("Empty directory or no good items!") << endl;
+		return -1;
+	}
+	
 
 	cout << "Todo Tool" << endl;
 	cout << "By Tyler Fanuele" << endl;
@@ -128,7 +144,7 @@ int main(int argc, char** argv)
 	vector<pair<pair<string, int> ,pair<string, int>>> mid_output_vector;
 	vector<pair<pair<string, int> ,pair<string, int>>> high_output_vector;
 	output_file.open(output_file_string);
-	cout << "Start scan of directory!: " << endl;
+	cout << "Start scan of directory!: " << working_dir << endl;
 	for(auto working_file : directory_vector)
 	{
 		input_file_string = working_file;
