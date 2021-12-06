@@ -1,6 +1,6 @@
-ProTodo:main.o
-	g++ main.cpp -o ProTodo
+todo:main.o
+	g++ main.cpp -o todo
 clean:
 	rm main.o
-	rm ProTodo
+	rm todo
 

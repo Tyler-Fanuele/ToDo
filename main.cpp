@@ -46,6 +46,7 @@ int main(int argc, char** argv)
 
 	//entry point, start getopt
 	int 	opt;
+	string working_dir = filesystem::current_path();
 	//cout << argc << endl;
 	/*
 	if(argc < 2)
@@ -74,7 +75,7 @@ int main(int argc, char** argv)
 	
 	//TODO!! add exception files
 
-	for(const auto& file : filesystem::directory_iterator(filesystem::current_path()))
+	for(const auto& file : filesystem::directory_iterator(working_dir))
 	{
 		directory_vector.push_back(file.path());
 	}
@@ -115,9 +116,11 @@ int main(int argc, char** argv)
 		}
 	}
 
-	
+	cout << "Todo Tool" << endl;
+	cout << "By Tyler Fanuele" << endl;
+	cout << "Working on " << working_dir << endl << endl;
 
-	//end getops, start reading file
+	//end getops, start reading files
 	ifstream input_file;
 	ofstream output_file;
 	string working_string;
@@ -125,10 +128,11 @@ int main(int argc, char** argv)
 	vector<pair<pair<string, int> ,pair<string, int>>> mid_output_vector;
 	vector<pair<pair<string, int> ,pair<string, int>>> high_output_vector;
 	output_file.open(output_file_string);
+	cout << "Start scan of directory!: " << endl;
 	for(auto working_file : directory_vector)
 	{
 		input_file_string = working_file;
-
+		cout << "Scanning " << input_file_string << "!" << endl;
 		input_file.open(input_file_string);
 		//output_file.open(output_file_string);
 	
@@ -156,6 +160,9 @@ int main(int argc, char** argv)
 		}
 		input_file.close();
 	}
+	cout << "Finished directory scan!" << endl << endl;
+	cout << "Todo list should be located in: " << output_file_string << endl;
+
 	output_file << "TODO LIST FOR: " << endl;
 	for(auto each : directory_vector)
 	{
