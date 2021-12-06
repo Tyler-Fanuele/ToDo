@@ -47,6 +47,7 @@ int main(int argc, char** argv)
 	//entry point, start getopt
 	int 	opt;
 	string working_dir = filesystem::current_path();
+	vector<string> exceptions;
 	//cout << argc << endl;
 	/*
 	if(argc < 2)
@@ -70,35 +71,14 @@ int main(int argc, char** argv)
 
 	//cout << input_file_string << endl;
 	
-
+	ifstream e_file;
+	string estring;
 	vector<string> directory_vector;
 	
 	//TODO!! add exception files
 	
-	/*
-	for(const auto& file : filesystem::directory_iterator(working_dir))
-	{
-		directory_vector.push_back(file.path());
-	}
 	
-	if(directory_vector.size() < 1)
-	{
-		cout << error_message("Empty directory or no good items!") << endl;
-		return -1;
-	}
-	*/
-	
-	/*
-	for(auto each : directory_vector)
-	{
-		cout << each << endl;
-	}
-	*/
-
-	
-	
-	
-	while((opt = getopt(argc, argv, "o:i:")) != -1)
+	while((opt = getopt(argc, argv, "o:i:e:lL:")) != -1)
 	{
 		switch(opt)
 		{
@@ -115,14 +95,44 @@ int main(int argc, char** argv)
 				output_file_string = optarg;
 				break;
 			case 'i':
+				{
 				working_dir = optarg;
 				break;
+				}
+			case 'e':
+				e_file.open(optarg);
+				while(getline(e_file, estring))
+				{
+					exceptions.push_back(estring);
+				}
+				e_file.close();
+				break;
+			case 'l':
+				cout << "ToDo full file path tool" << endl;
+				cout << "Printing all of the full file paths from your directory..." << endl;
+				for(const auto& lfile : filesystem::directory_iterator(working_dir))
+				{
+					cout << "-> " <<lfile << endl;
+				}
+				return 0;
+			case 'L':
+				cout << "ToDo full file path tool" << endl;
+				cout << "Printing all of the full file paths from specified directory..." << endl;
+				for(const auto& lfile : filesystem::directory_iterator(optarg))
+				{
+					cout << "-> " << lfile << endl;
+				}
+				return 0;
+
 		}
 	}
 	
 	for(const auto& file : filesystem::directory_iterator(working_dir))
 	{
-		directory_vector.push_back(file.path());
+		if(!(find(exceptions.begin(), exceptions.end(), file.path().string()) != exceptions.end()))
+		{
+			directory_vector.push_back(file.path());
+		}
 	}
 	
 	if(directory_vector.size() < 1)

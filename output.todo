@@ -1,0 +1,44 @@
+TODO LIST FOR: 
+/home/tyler/ProTodo/output.todo
+/home/tyler/ProTodo/main.cpp
+/home/tyler/ProTodo/main.o
+/home/tyler/ProTodo/cleanup.sh
+/home/tyler/ProTodo/ex.txt
+/home/tyler/ProTodo/.git
+/home/tyler/ProTodo/todo
+/home/tyler/ProTodo/README.md
+/home/tyler/ProTodo/input.txt
+/home/tyler/ProTodo/Makefile
+/home/tyler/ProTodo/setup.sh
+
+
+High Priority ToDos: 
+Message: TODO!!! oh danm 3
+From File: /home/tyler/ProTodo/input.txt From line: 5
+
+Message: TODO!!!
+From File: /home/tyler/ProTodo/input.txt From line: 9
+
+
+Mid Priority Todos: 
+Message: TODO!! add exception files
+From File: /home/tyler/ProTodo/main.cpp From line: 77
+
+Message: TODO!! wait what2
+From File: /home/tyler/ProTodo/input.txt From line: 4
+
+Message: TODO!!
+From File: /home/tyler/ProTodo/input.txt From line: 8
+
+
+Low Priority Todos: 
+Message: TODO! need to test this 1
+From File: /home/tyler/ProTodo/input.txt From line: 3
+
+Message: TODO!
+From File: /home/tyler/ProTodo/input.txt From line: 6
+
+Message: TODO!
+From File: /home/tyler/ProTodo/input.txt From line: 7
+
+
