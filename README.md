@@ -1,16 +1,22 @@
-# ToDo Tool
+# The ToDo Tool
+
+By Tyler Fanuele
 
 ## About
+
 The ToDo tool lets the user plan their linux workflow by adding comments to their 
 existing code and making a todo list for unfinished tasks.
 
 ## Adding the ToDo tool to your Path
+
 ### Linux:
+
 1. Run ***"make && sudo ./setup"***  in console to add the program to the Path.
 2. See the Using the Todo tool section for instructions on program comments.
 3. Run the program with command ***"todo"*** to make a todo list of your current path.
 
 ## Using the ToDo tool
+
 1. ToDo comments:
 	1. Comment "//TODO! 'user message'" for a low priority todo.
 	2. Comment "//TODO!! 'user message'" for a mid priority todo.
@@ -21,6 +27,7 @@ existing code and making a todo list for unfinished tasks.
 	1. Type "todo" into the command line to create a todo list from your current path!
 
 ## Examples
+
 - $ todo 
 	- This example would produce a todo list from your current directory with the default output file name.
 - $ todo -o output.todo
