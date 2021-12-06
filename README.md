@@ -5,7 +5,8 @@ By Tyler Fanuele
 ## About
 
 The ToDo tool lets the user plan their linux workflow by adding comments to their 
-existing code and making a todo list for unfinished tasks.
+existing code and making a todo list for unfinished tasks. This tool is meant to work with
+any progaming language that allows for // comments. 
 
 ## Adding the ToDo tool to your Path
 
