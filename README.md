@@ -33,15 +33,13 @@ any progaming language that allows for // comments.
 	- This example would produce a todo list from your current directory with the default output file name.
 - $ todo -o output.todo
 	- This example would produce a todo list from your current directory with "output.todo" as the output file.
-- $ todo -i /foo
-	- This example would produce a todo list from the directory /foo 
-	and output to the default file.
 - $ todo -o output.todo -e exceptions.txt
 	- This example would produce a todo list from your current directory with a "output.todo" as the output file.
 	The program will also check a list of exceptions listed in the exceptions.txt file and exclude them from your todo list.
 - $ todo -l
-	- This example will print you the full paths of all of the files in your current directory. You can use the -i command to 
-	specify a different directory if you want.
+	- This example will print you the full paths of all of the files in your current directory.
+- $ todo -L /foo/bar
+	- This example will print the full paths of all the things in the argument passed file path.
 
 ## Commands
 
@@ -55,21 +53,11 @@ The -o command will set the file to output the todo file to.
 
 $ todo -o output.txt
 
-### -i "directory path"
-
-#### Input path setter
-
-This command will tell ToDo what path to scan to make a todo list.
-
-#### Example:
-
-$ todo -i /foo/bar
-
 ### -e "file path"
 
 #### Exception flag
 
-This command will pass a file to ToDo that will tell it what files to ignore in the current directory.
+This command will pass a file to ToDo that will tell it what files or directories to ignore in the current directory.
 See the exceptions section for more information on a exception file.
 
 #### Example:
@@ -81,8 +69,7 @@ $ todo -e exceptions.txt
 #### Full path printer command
 
 This command lets the user print the full paths of all of the files in the current directory. This can help the user
-write the exception file. While you can use -i to specify a different directory for -l, it is recommended to use -L 
-"FILE NAME" instead.
+write the exception file.
 
 #### Example:
 $ todo -l
@@ -102,10 +89,10 @@ $ todo -L /bar/foo
 ### How to make a exception file
 
 1. To make a exception file create a file with a name of your choosing, ex.txt for example
-   Then figure out the full paths of the files you want to exclude. ToDo include -l and -L to
+   Then figure out the full paths of the files or directories you want to exclude. ToDo include -l and -L to
    make finding these easier as ToDo sees file paths exactly how -l and -L see them. 
 
-2. Once the full file paths are known list them one by one in your exceptions file. Make sure they are exactly as
+2. Once the full paths are known list them one by one in your exceptions file. Make sure they are exactly as
    They appear on the computer or they wont be excluded by ToDo when the program is called. Please use -l or -L
    if you are having trouble. Once your file is finished you are ready to use the -e command. See the exceptions example
    section for a exception file example
@@ -118,5 +105,5 @@ $ todo -L /bar/foo
 /usr/foo/kar.cpp  
 /usr/foo/lak.c  
 /usr/foo/p.h  
- 
+/usr/foo/bar
 

@@ -47,38 +47,31 @@ int main(int argc, char** argv)
 	//entry point, start getopt
 	int 	opt;
 	string working_dir = filesystem::current_path();
+	string git_dir = working_dir + "/.git";
 	vector<string> exceptions;
-	//cout << argc << endl;
-	/*
-	if(argc < 2)
+	if(filesystem::is_directory(filesystem::status(git_dir)))
 	{
-		cout << error_message("Not enough arguments!") << endl;
-		cout << error_message("No input file given!") << endl;
-		return -1;		
-	}
-	*/
-	string 	input_file_string = argv[1];
-	string  t = "";
-	for(int j = 0; j < input_file_string.size(); j++)
-	{
-		if(input_file_string[j] == '.')
+		exceptions.push_back(git_dir);
+		for(auto& gfile : filesystem::recursive_directory_iterator(git_dir))
 		{
-			break;
+			exceptions.push_back(gfile.path());
 		}
-		t += input_file_string[j];
 	}
-	string	output_file_string = t + ".todo";
+	string 	input_file_string;// = argv[1];
+	string	output_file_string = "list.todo";
 
-	//cout << input_file_string << endl;
+
 	
 	ifstream e_file;
 	string estring;
+	ifstream E_file;
+	string Estring;
 	vector<string> directory_vector;
 	
 	//TODO!! add exception files
 	
 	
-	while((opt = getopt(argc, argv, "o:i:e:lL:")) != -1)
+	while((opt = getopt(argc, argv, "o:e:lL:")) != -1)
 	{
 		switch(opt)
 		{
@@ -94,16 +87,34 @@ int main(int argc, char** argv)
 				}
 				output_file_string = optarg;
 				break;
-			case 'i':
-				{
-				working_dir = optarg;
-				break;
-				}
 			case 'e':
 				e_file.open(optarg);
+				Estring = working_dir+ "/" + optarg;
+				if(!filesystem::exists(filesystem::status(Estring)))
+				{
+					cout << "Exception file: \" " << Estring << "\" does not exist!" << endl;
+					return -1;
+				}
+				exceptions.push_back(Estring);
+				
 				while(getline(e_file, estring))
 				{
-					exceptions.push_back(estring);
+					if(filesystem::exists(filesystem::status(estring)))
+					{
+						exceptions.push_back(estring);
+						if(filesystem::is_directory(filesystem::status(estring)))
+						{	
+							
+							for(auto& Efile : filesystem::recursive_directory_iterator(estring))
+							{
+								exceptions.push_back(Efile.path());
+							}
+						}
+						else
+						{
+							exceptions.push_back(estring);
+						}
+					}
 				}
 				e_file.close();
 				break;
@@ -127,7 +138,7 @@ int main(int argc, char** argv)
 		}
 	}
 	
-	for(const auto& file : filesystem::directory_iterator(working_dir))
+	for(auto& file : filesystem::recursive_directory_iterator(working_dir))
 	{
 		if(!(find(exceptions.begin(), exceptions.end(), file.path().string()) != exceptions.end()))
 		{
@@ -190,10 +201,9 @@ int main(int argc, char** argv)
 	cout << "Todo list should be located in: " << output_file_string << endl;
 
 	output_file << "TODO LIST FOR: " << endl;
-	for(auto each : directory_vector)
-	{
-		output_file << each << endl;
-	}
+	output_file << working_dir << endl;
+
+
 	output_file << endl << endl;
 
 	output_file << "High Priority ToDos: " << endl;
@@ -206,7 +216,20 @@ int main(int argc, char** argv)
 	
 	output_file << "Low Priority Todos: " << endl;
 	print_vector(low_output_vector, output_file);
+	output_file << endl << endl;
+	
+	output_file << "Scanned directories and files:" << endl;
+	for(auto each : directory_vector)
+	{
+		output_file << each << endl;
+	}
 	output_file << endl;
+
+	output_file << "Excluded directories and files: " << endl;
+	for(auto each2 : exceptions)
+	{
+		output_file << each2 << endl;
+	}
 
 	output_file.close();
 
