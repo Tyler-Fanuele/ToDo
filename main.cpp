@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <vector>
 #include <iomanip>
-
+#include <ctime>
 
 using namespace std;
 
@@ -84,6 +84,8 @@ int main(int argc, char** argv)
 {
 
 	//entry point, start getopt
+	time_t now = time(NULL);
+	string dnow = ctime(&now);
 	int 	opt;
 	string working_dir = filesystem::current_path();
 	string git_dir = working_dir + "/.git";
@@ -263,38 +265,46 @@ int main(int argc, char** argv)
 	//End in console section of the program
 	
 	//start of output file printing
-	output_file << "--- Todo list for: " << working_dir << " ---" << endl;
+	
+	const string BREAK = "++++++++++++++++++++++++++++++++++++++++++++++";
+
+	output_file << "+++++ Todo list for: " << working_dir << " +++++" << endl;
+	output_file << pad(7, ' ') << "Last Todo list update: " << dnow << endl;
 	output_file << endl << endl;
 	
 	//Print high priority task section
 	output_file << "High Priority tasks: " << endl;
+	output_file << BREAK << endl;
 	if(high_output_vector.size() < 1)
 	{
-		output_file << "No tasks..." << endl;
+		output_file << pad(7, ' ') << "No tasks..." << endl;
 	}
 	print_vector(high_output_vector, output_file);
 	output_file << endl;
 	
 	//Print mid priority task section
 	output_file << "Mid Priority Todos: " << endl;
+	output_file << BREAK << endl;
 	if(mid_output_vector.size() < 1)
 	{
-		output_file << "No tasks..." << endl;
+		output_file << pad(7, ' ') << "No tasks..." << endl;
 	}
 	print_vector(mid_output_vector, output_file);
 	output_file << endl;
 	
 	//Print low priority task section
 	output_file << "Low Priority Todos: " << endl;
+	output_file << BREAK << endl;
 	if(low_output_vector.size() < 1)
 	{
-		output_file << "No tasks..." << endl;
+		output_file << pad(7, ' ') << "No tasks..." << endl;
 	}	
 	print_vector(low_output_vector, output_file);
 	output_file << endl << endl;
 	
 	//Print scanned directories and files
 	output_file << "Scanned directories and files:" << endl;
+	output_file << BREAK << endl;
 	for(auto each : directory_vector)
 	{
 		output_file << pad(7, ' ') << each << endl;
@@ -303,6 +313,7 @@ int main(int argc, char** argv)
 	
 	//Print excluded directories and files
 	output_file << "Excluded directories and files: " << endl;
+	output_file << BREAK << endl;
 	for(auto each2 : exceptions)
 	{
 		output_file << pad(7, ' ') << each2 << endl;
