@@ -6,8 +6,25 @@
 #include <filesystem>
 #include <algorithm>
 #include <vector>
+#include <iomanip>
+
 
 using namespace std;
+
+string
+pad(int len, char c)
+{
+	string ret = "";
+	if(len < 0)
+	{
+		return "";
+	}
+	for(int i = 0; i < len; i++)
+	{
+		ret += c;
+	}
+	return ret;
+}
 
 string 
 error_message(string message)
@@ -36,16 +53,16 @@ void print_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vec
 	{
 		if(each.first.second == 0)
 		{
-			out << "[x]Message: " << each.first.first<< endl;
-			out << "From File: " <<each.second.first;
-			out << " From line: " << each.second.second << endl;
+			out << "[x] -> " << each.first.first<< endl;
+			out << "       From File: " <<each.second.first << endl;
+			out << "       From line: " << each.second.second << endl;
 			out << endl;
 		}
 		else
 		{
-			out << "[ ]Message: " << each.first.first << endl;
-			out << "From File: " << each.second.first;
-			out << " From Line: " << each.second.second << endl;
+			out << "[ ] -> " << each.first.first << endl;
+			out << "       From File: " << each.second.first << endl;
+			out << "       From Line: " << each.second.second << endl;
 			out << endl;
 		}
 	}
@@ -82,6 +99,7 @@ int main(int argc, char** argv)
 	string 	input_file_string;// = argv[1];
 	string	output_file_string = "list.todo";
 
+	ifstream r_file;
 
 	
 	ifstream e_file;
@@ -90,7 +108,7 @@ int main(int argc, char** argv)
 	string Estring;
 	vector<string> directory_vector;
 	
-	//TODO!! add exception files
+	//DONE!! add exception files
 	
 	
 	while((opt = getopt(argc, argv, "o:e:lL:h")) != -1)
@@ -159,7 +177,6 @@ int main(int argc, char** argv)
 					cout << "-> " << lfile << endl;
 				}
 				return 0;
-
 		}
 	}
 	
@@ -194,44 +211,50 @@ int main(int argc, char** argv)
 	for(auto working_file : directory_vector)
 	{
 		input_file_string = working_file;
-		cout << "Scanning " << input_file_string << "!" << endl;
+		cout << "Scanning " << input_file_string << "! ->";
 		input_file.open(input_file_string);
 		//output_file.open(output_file_string);
 	
 		int line = 1;
+		int num_found = 0;
 		while(getline(input_file, working_string))
 		{
 			string temp = "";
 			string temp2 = "";
 			working_string.erase(remove(working_string.begin(), working_string.end(), '\t'), working_string.end());
 			if(working_string.rfind("//TODO!!!", 0) == 0)
-			{
+			{	
+				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
 			}	
 			else if(working_string.rfind("//TODO!!", 0) == 0)
 			{	
-			
+				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
 			}
 			else if(working_string.rfind("//TODO!", 0) == 0)
 			{
-			
+				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
 			}
 			else if(working_string.rfind("//DONE!!!", 0) == 0)
 			{
+				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
 			}
 			else if(working_string.rfind("//DONE!!", 0) == 0)
 			{
+				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
 			}
 			else if(working_string.rfind("//DONE!", 0) == 0)
 			{
+				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
 			}
 			line++;
 		}
+		cout << " Tasks found: " << num_found << endl;
 		input_file.close();
 	}
 	cout << "Finished directory scan!" << endl << endl;
@@ -274,7 +297,7 @@ int main(int argc, char** argv)
 	output_file << "Scanned directories and files:" << endl;
 	for(auto each : directory_vector)
 	{
-		output_file << "-> " << each << endl;
+		output_file << pad(7, ' ') << each << endl;
 	}
 	output_file << endl;
 	
@@ -282,7 +305,7 @@ int main(int argc, char** argv)
 	output_file << "Excluded directories and files: " << endl;
 	for(auto each2 : exceptions)
 	{
-		output_file << "-> " << each2 << endl;
+		output_file << pad(7, ' ') << each2 << endl;
 	}
 
 	output_file.close();
