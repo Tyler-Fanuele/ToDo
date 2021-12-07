@@ -12,7 +12,7 @@ any progaming language that allows for // comments. Git files are ignored by def
 
 ### Linux:
 
-1. Run ***"make && sudo ./setup"***  in console to add the program to the Path.
+1. Run ***"make"*** and ***"sudo ./setup"***  in console to add the program to the Path.
 2. See the Using the Todo tool section for instructions on program comments.
 3. Run the program with command ***"todo"*** to make a todo list of your current path.
 
