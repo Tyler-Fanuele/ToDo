@@ -34,10 +34,20 @@ void print_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vec
 {
 	for(auto each : output_vector)
 	{
-		out << "Message: " << each.first.first<< endl;
-		out << "From File: " <<each.second.first;
-		out << " From line: " << each.second.second << endl;
-		out << endl;
+		if(each.first.second == 0)
+		{
+			out << "[x]Message: " << each.first.first<< endl;
+			out << "From File: " <<each.second.first;
+			out << " From line: " << each.second.second << endl;
+			out << endl;
+		}
+		else
+		{
+			out << "[ ]Message: " << each.first.first << endl;
+			out << "From File: " << each.second.first;
+			out << " From Line: " << each.second.second << endl;
+			out << endl;
+		}
 	}
 }
 
@@ -196,17 +206,29 @@ int main(int argc, char** argv)
 			working_string.erase(remove(working_string.begin(), working_string.end(), '\t'), working_string.end());
 			if(working_string.rfind("//TODO!!!", 0) == 0)
 			{
-				add_to_vector(high_output_vector, working_string, line, input_file_string, 3);
+				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
 			}	
 			else if(working_string.rfind("//TODO!!", 0) == 0)
 			{	
 			
-				add_to_vector(mid_output_vector, working_string, line, input_file_string, 2);
+				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
 			}
 			else if(working_string.rfind("//TODO!", 0) == 0)
 			{
 			
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
+			}
+			else if(working_string.rfind("//DONE!!!", 0) == 0)
+			{
+				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
+			}
+			else if(working_string.rfind("//DONE!!", 0) == 0)
+			{
+				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
+			}
+			else if(working_string.rfind("//DONE!", 0) == 0)
+			{
+				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
 			}
 			line++;
 		}

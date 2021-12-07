@@ -22,9 +22,12 @@ any progaming language that allows for // comments. Git files are ignored by def
 	1. Comment "//TODO! 'user message'" for a low priority todo.
 	2. Comment "//TODO!! 'user message'" for a mid priority todo.
 	3. Comment "//TODO!!! 'user message'" for a high priority todo.
-2. Create a .todo file:
+2. Done comments:
+	1. Change the "//TODO!" comment to "//DONE!" to change check off the task.   
+	This works for all levels of tasks.
+3. Create a .todo file:
 	1. This file will allow you to specify the place you would like your todo list to be output to.
-3. Running the program:
+4. Running the program:
 	1. Type "todo" into the command line to create a todo list from your current path!
 
 ## Examples

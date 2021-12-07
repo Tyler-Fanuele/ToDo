@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-//TODO!!! add some functions!!
+//DONE!!! add some functions!!
 
 int main(int argc, char argv[])
 {
