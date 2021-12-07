@@ -11,7 +11,7 @@ any progaming language that allows for // comments. Git files are ignored by def
 ## Possible ways to use ToDo list tool
 
 ToDo tool is designed to be ran every time you add or change a TODO comment, this way your
-todo list is always up to date with your tasks. Todo can also be added to a Makefile so that  
+todo list is always up to date with your tasks. Todo can also be added to a Makefile so that
 when your project is built the todo list will also be updated.
 
 ## Adding the ToDo tool to your Path
