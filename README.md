@@ -33,7 +33,9 @@ when your project is built the todo list will also be updated.
 	This works for all levels of tasks.
 3. Create a .todo file:
 	1. This file will allow you to specify the place you would like your todo list to be output to.
-4. Running the program:
+4. Optionally create a exception file:
+	1. See the exceptions section for more details. 
+5. Running the program:
 	1. Type "todo" into the command line to create a todo list from your current path!
 
 ## Examples
