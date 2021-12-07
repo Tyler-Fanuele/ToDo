@@ -236,39 +236,57 @@ int main(int argc, char** argv)
 	}
 	cout << "Finished directory scan!" << endl << endl;
 	cout << "Todo list should be located in: " << output_file_string << endl;
-
-	output_file << "TODO LIST FOR: " << endl;
-	output_file << working_dir << endl;
-
-
+	
+	//End in console section of the program
+	
+	//start of output file printing
+	output_file << "--- Todo list for: " << working_dir << " ---" << endl;
 	output_file << endl << endl;
-
-	output_file << "High Priority ToDos: " << endl;
+	
+	//Print high priority task section
+	output_file << "High Priority tasks: " << endl;
+	if(high_output_vector.size() < 1)
+	{
+		output_file << "No tasks..." << endl;
+	}
 	print_vector(high_output_vector, output_file);
 	output_file << endl;
-
+	
+	//Print mid priority task section
 	output_file << "Mid Priority Todos: " << endl;
+	if(mid_output_vector.size() < 1)
+	{
+		output_file << "No tasks..." << endl;
+	}
 	print_vector(mid_output_vector, output_file);
 	output_file << endl;
 	
+	//Print low priority task section
 	output_file << "Low Priority Todos: " << endl;
+	if(low_output_vector.size() < 1)
+	{
+		output_file << "No tasks..." << endl;
+	}	
 	print_vector(low_output_vector, output_file);
 	output_file << endl << endl;
 	
+	//Print scanned directories and files
 	output_file << "Scanned directories and files:" << endl;
 	for(auto each : directory_vector)
 	{
-		output_file << each << endl;
+		output_file << "-> " << each << endl;
 	}
 	output_file << endl;
-
+	
+	//Print excluded directories and files
 	output_file << "Excluded directories and files: " << endl;
 	for(auto each2 : exceptions)
 	{
-		output_file << each2 << endl;
+		output_file << "-> " << each2 << endl;
 	}
 
 	output_file.close();
+	//End output file printing
 
 	return 0;
 }
