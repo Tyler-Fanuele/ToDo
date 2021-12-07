@@ -27,7 +27,7 @@ add_to_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vector,
 		temp += working_string[i];
 	}
 	temp2 += "|From File: " + file_name + " | At line: " + to_string(line);
-	output_vector.push_back(pair(pair(temp, demand), pair(file_name, line)));
+	output_vector.push_back(pair<pair<string, int>, pair<string, int>>(pair<string, int>(temp, demand), pair<string, int>(file_name, line)));
 }
 
 void print_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vector, ostream& out)
