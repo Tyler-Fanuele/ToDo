@@ -8,6 +8,7 @@
 #include <vector>
 #include <iomanip>
 #include <ctime>
+#include <experimental/filesystem>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ error_message(string message)
 }
 
 void 
-add_to_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vector, string working_string ,int line, string file_name, int demand)
+add_to_vector(vector< pair< pair<string, int>, pair<string, int> > >& output_vector, string working_string ,int line, string file_name, int demand)
 {
 	string temp = "";
 	string temp2 = "";
@@ -44,10 +45,10 @@ add_to_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vector,
 		temp += working_string[i];
 	}
 	temp2 += "|From File: " + file_name + " | At line: " + to_string(line);
-	output_vector.push_back(pair<pair<string, int>, pair<string, int>>(pair<string, int>(temp, demand), pair<string, int>(file_name, line)));
+	output_vector.push_back(pair< pair<string, int>, pair<string, int> >(pair<string, int>(temp, demand), pair<string, int>(file_name, line)));
 }
 
-void print_vector(vector<pair<pair<string, int>, pair<string, int>>>& output_vector, ostream& out)
+void print_vector(vector< pair< pair<string, int>, pair<string, int> > >& output_vector, ostream& out)
 {
 	for(auto each : output_vector)
 	{
