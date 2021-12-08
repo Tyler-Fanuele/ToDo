@@ -11,7 +11,7 @@
 #include <experimental/filesystem>
 
 using namespace std;
-using namespace std::experimental::filesystem;
+using namespace std::filesystem;
 string
 pad(int len, char c)
 {
