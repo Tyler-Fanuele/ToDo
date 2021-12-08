@@ -224,32 +224,32 @@ int main(int argc, char** argv)
 			string temp = "";
 			string temp2 = "";
 			working_string.erase(remove(working_string.begin(), working_string.end(), '\t'), working_string.end());
-			if(working_string.rfind("//TODO!!!", 0) == 0)
+			if(working_string.rfind("//TODO!!! ", 0) == 0)
 			{	
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
 			}	
-			else if(working_string.rfind("//TODO!!", 0) == 0)
+			else if(working_string.rfind("//TODO!! ", 0) == 0)
 			{	
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
 			}
-			else if(working_string.rfind("//TODO!", 0) == 0)
+			else if(working_string.rfind("//TODO! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
 			}
-			else if(working_string.rfind("//DONE!!!", 0) == 0)
+			else if(working_string.rfind("//DONE!!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
 			}
-			else if(working_string.rfind("//DONE!!", 0) == 0)
+			else if(working_string.rfind("//DONE!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
 			}
-			else if(working_string.rfind("//DONE!", 0) == 0)
+			else if(working_string.rfind("//DONE! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
@@ -267,12 +267,19 @@ int main(int argc, char** argv)
 	//start of output file printing
 	
 	const string BREAK = "++++++++++++++++++++++++++++++++++++++++++++++";
-
+	
+	//Print header
 	output_file << "+++++ Todo list for: " << working_dir << " +++++" << endl;
-	output_file << pad(7, ' ') << "Last Todo list update: " << dnow << endl;
+	output_file << pad(7, ' ') << "Last Todo list update: " << dnow;
+	output_file << pad(7, ' ') << "Command: ";
+	for(int m = 0; m < argc; m++)
+	{
+		output_file << argv[m] << " ";
+	}
 	output_file << endl << endl;
 	
 	//Print high priority task section
+	output_file << BREAK << endl;
 	output_file << "High Priority tasks: " << endl;
 	output_file << BREAK << endl;
 	if(high_output_vector.size() < 1)
@@ -283,6 +290,7 @@ int main(int argc, char** argv)
 	output_file << endl;
 	
 	//Print mid priority task section
+	output_file << BREAK << endl;
 	output_file << "Mid Priority Todos: " << endl;
 	output_file << BREAK << endl;
 	if(mid_output_vector.size() < 1)
@@ -293,6 +301,7 @@ int main(int argc, char** argv)
 	output_file << endl;
 	
 	//Print low priority task section
+	output_file << BREAK << endl;
 	output_file << "Low Priority Todos: " << endl;
 	output_file << BREAK << endl;
 	if(low_output_vector.size() < 1)
@@ -303,6 +312,7 @@ int main(int argc, char** argv)
 	output_file << endl << endl;
 	
 	//Print scanned directories and files
+	output_file << BREAK << endl;
 	output_file << "Scanned directories and files:" << endl;
 	output_file << BREAK << endl;
 	for(auto each : directory_vector)
@@ -312,6 +322,7 @@ int main(int argc, char** argv)
 	output_file << endl;
 	
 	//Print excluded directories and files
+	output_file << BREAK << endl;
 	output_file << "Excluded directories and files: " << endl;
 	output_file << BREAK << endl;
 	for(auto each2 : exceptions)
