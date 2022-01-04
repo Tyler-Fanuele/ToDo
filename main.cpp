@@ -48,7 +48,8 @@ add_to_vector(vector< pair< pair<string, int>, pair<string, int> > >& output_vec
 	output_vector.push_back(pair< pair<string, int>, pair<string, int> >(pair<string, int>(temp, demand), pair<string, int>(file_name, line)));
 }
 
-void print_vector(vector< pair< pair<string, int>, pair<string, int> > >& output_vector, ostream& out)
+void 
+print_vector(vector< pair< pair<string, int>, pair<string, int> > >& output_vector, ostream& out)
 {
 	for(auto each : output_vector)
 	{
@@ -69,7 +70,8 @@ void print_vector(vector< pair< pair<string, int>, pair<string, int> > >& output
 	}
 }
 
-void print_help()
+void 
+print_help()
 {
 	cout << "ToDo list tool" << endl;
 	cout << "By Tyler Fanuele" << endl;
@@ -270,7 +272,8 @@ int main(int argc, char** argv)
 	const string BREAK = "++++++++++++++++++++++++++++++++++++++++++++++";
 	
 	//Print header
-	output_file << "+++++ Todo list for: " << working_dir << " +++++" << endl;
+	output_file << "+++++ Todo list " << "+++++" << endl;
+	output_file << pad(7, ' ') << "Working Dir: " << working_dir << endl;
 	output_file << pad(7, ' ') << "Last Todo list update: " << dnow;
 	output_file << pad(7, ' ') << "Command: ";
 	for(int m = 0; m < argc; m++)
