@@ -200,9 +200,9 @@ int main(int argc, char** argv)
 	}
 	
 
-	cout << "Todo Tool" << endl;
-	cout << "By Tyler Fanuele" << endl;
-	cout << "Working on " << working_dir << endl << endl;
+	cout << "=== A todo list tool by Tyler Fanuele" << endl;
+	cout << "=== Operational directory: " << working_dir << endl;
+	cout << "===" << endl;
 
 	//end getops, start reading files
 	ifstream input_file;
@@ -212,11 +212,11 @@ int main(int argc, char** argv)
 	vector<pair<pair<string, int> ,pair<string, int>>> mid_output_vector;
 	vector<pair<pair<string, int> ,pair<string, int>>> high_output_vector;
 	output_file.open(output_file_string);
-	cout << "Start scan of directory!: " << working_dir << endl;
+	
 	for(auto working_file : directory_vector)
 	{
 		input_file_string = working_file;
-		cout << "Scanning " << input_file_string << "! ->";
+		cout << "=== Scanning " << input_file_string << endl;
 		input_file.open(input_file_string);
 		//output_file.open(output_file_string);
 	
@@ -231,39 +231,53 @@ int main(int argc, char** argv)
 			{	
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
+				cout << "===" << pad(3, ' ') << " Saw TODO!!! token in " << working_file << " at line: "  << line << endl;
 			}	
 			else if(working_string.rfind("//TODO!! ", 0) == 0)
 			{	
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
+				cout << "===" << pad(3, ' ') << " Saw TODO!! token in " << working_file << " at line: " << line << endl;
 			}
 			else if(working_string.rfind("//TODO! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
+				cout << "===" << pad(3, ' ') << " Saw TODO! token in  " << working_file << " at line: "  << line << endl;
 			}
 			else if(working_string.rfind("//DONE!!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
+				cout << "===" << pad(3, ' ') << " Saw DONE!!! token in " << working_file << " at line: " << line << endl;
 			}
 			else if(working_string.rfind("//DONE!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
+				cout << "===" << pad(3, ' ') << " Saw DONE!! token in  " << working_file << " at line: " << line << endl;
 			}
 			else if(working_string.rfind("//DONE! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
+				cout << "===" << pad(3, ' ') <<" Saw DONE! token in  " << working_file << " at line: " << line << endl;
 			}
 			line++;
 		}
-		cout << " Tasks found: " << num_found << endl;
+		if(num_found > 0)
+		{
+			cout << "===" << pad(3, ' ') <<" Finished scanning "<< working_file << ": "<< num_found << " tokens found" << endl;
+		}
+		else
+		{
+			cout << "===" << pad(3, ' ') << " No tokens found in " << working_file << endl;
+		}
+		//cout << "===" << endl;
 		input_file.close();
 	}
-	cout << "Finished directory scan!" << endl << endl;
-	cout << "Todo list should be located in: " << output_file_string << endl;
+	cout << "=== Directorys scanned successfully" << endl;
+	cout << "=== Your list is located in " << output_file_string << endl;
 	
 	//End in console section of the program
 	
