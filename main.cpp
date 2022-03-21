@@ -25,7 +25,7 @@ add_color(string wString, int color, int formatting)
 {
 	string temp1 = "\033[" + to_string(formatting) + ";" + to_string(color) + "m";
 	temp1 += wString + "\033[0m";
-	return temp1; 
+	return temp1;
 }
 
 string
@@ -216,9 +216,9 @@ int main(int argc, char **argv)
 	}
 
 	cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
-	cout << add_color("=== Operational directory: ", G, REG) 
-	                  << add_color(working_dir, G, REG) << endl;
-	cout <<add_color("===", G, REG) << endl;
+	cout << add_color("=== Operational directory: ", G, REG)
+		 << add_color(working_dir, G, REG) << endl;
+	cout << add_color("===", G, REG) << endl;
 
 	// end getops, start reading files
 	ifstream input_file;
@@ -248,61 +248,53 @@ int main(int argc, char **argv)
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
 				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO!!! token in "
-				     << working_file << " at line: " << line << endl;
-				
+					 << working_file << " at line: " << line << endl;
 			}
 			else if (working_string.rfind("//TODO!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
-				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO!! token in " 
-				     << working_file << " at line: " << line << endl;
-				
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO!! token in "
+					 << working_file << " at line: " << line << endl;
 			}
 			else if (working_string.rfind("//TODO! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
-				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO! token in  "  
-				     << working_file << " at line: " << line << endl;
-				
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO! token in  "
+					 << working_file << " at line: " << line << endl;
 			}
 			else if (working_string.rfind("//DONE!!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
-				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!!! token in " 
-				     << working_file << " at line: " << line << endl;
-				
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!!! token in "
+					 << working_file << " at line: " << line << endl;
 			}
 			else if (working_string.rfind("//DONE!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
-				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!! token in  " << working_file 
-				     << " at line: " << line << endl;
-				
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!! token in  " << working_file
+					 << " at line: " << line << endl;
 			}
 			else if (working_string.rfind("//DONE! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
-				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE! token in  " 
-				     << working_file << " at line: " << line << endl;
-				
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE! token in  "
+					 << working_file << " at line: " << line << endl;
 			}
 			line++;
 		}
 		if (num_found > 0)
 		{
-			cout << add_color("===", G, REG) << pad(3, ' ') << " Finished scanning " << working_file 
+			cout << add_color("===", G, REG) << pad(3, ' ') << " Finished scanning " << working_file
 				 << ": " << num_found << " tokens found" << endl;
-			
 		}
 		else
 		{
 			cout << add_color("===", G, REG) << pad(3, ' ') << " No tokens found in " << working_file << endl;
-			
 		}
 		// cout << "===" << endl;
 		input_file.close();
@@ -310,7 +302,6 @@ int main(int argc, char **argv)
 	}
 	cout << add_color("=== Directorys scanned successfully", G, REG) << endl;
 	cout << add_color("=== Your list is located in ", G, UND) << add_color(output_file_string, B, UND) << endl;
-	
 
 	// End in console section of the program
 
