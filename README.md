@@ -22,6 +22,11 @@ when your project is built the todo list will also be updated.
 2. See the Using the Todo tool section for instructions on program comments.
 3. Run the program with command ***"todo"*** to make a todo list of your current path.
 
+### Mac
+1. Add the file path to your /ect/paths folder and restart terminal.
+2. Run ***"make"***.
+3. Then you can run the program with the command ***"todo"***.
+
 ## Using the ToDo tool
 
 1. ToDo comments:

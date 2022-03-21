@@ -9,8 +9,24 @@
 #include <iomanip>
 #include <ctime>
 #include <experimental/filesystem>
+#include <string>
 
 using namespace std;
+
+#define G (32)
+#define R (31)
+#define B (34)
+#define BLD (1)
+#define UND (4)
+#define REG (0)
+
+string
+add_color(string wString, int color, int formatting)
+{
+	string temp1 = "\033[" + to_string(formatting) + ";" + to_string(color) + "m";
+	temp1 += wString + "\033[0m";
+	return temp1; 
+}
 
 string
 pad(int len, char c)
@@ -171,7 +187,7 @@ int main(int argc, char **argv)
 			cout << "Printing all of the full file paths from your directory..." << endl;
 			for (const auto &lfile : filesystem::directory_iterator(working_dir))
 			{
-				cout << "-> " << lfile.path() << endl;
+				cout << "->" << lfile.path() << endl;
 			}
 			return 0;
 		case 'L':
@@ -199,9 +215,10 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	cout << "=== A todo list tool by Tyler Fanuele" << endl;
-	cout << "=== Operational directory: " << working_dir << endl;
-	cout << "===" << endl;
+	cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
+	cout << add_color("=== Operational directory: ", G, REG) 
+	                  << add_color(working_dir, G, REG) << endl;
+	cout <<add_color("===", G, REG) << endl;
 
 	// end getops, start reading files
 	ifstream input_file;
@@ -215,7 +232,7 @@ int main(int argc, char **argv)
 	for (auto working_file : directory_vector)
 	{
 		input_file_string = working_file;
-		cout << "=== Scanning " << input_file_string << endl;
+		cout << add_color("=== Scanning ", G, UND) << add_color(input_file_string, B, UND) << endl;
 		input_file.open(input_file_string);
 		// output_file.open(output_file_string);
 
@@ -230,53 +247,70 @@ int main(int argc, char **argv)
 			{
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 1);
-				cout << "===" << pad(3, ' ') << " Saw TODO!!! token in " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO!!! token in "
+				     << working_file << " at line: " << line << endl;
+				
 			}
 			else if (working_string.rfind("//TODO!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 1);
-				cout << "===" << pad(3, ' ') << " Saw TODO!! token in " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO!! token in " 
+				     << working_file << " at line: " << line << endl;
+				
 			}
 			else if (working_string.rfind("//TODO! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 1);
-				cout << "===" << pad(3, ' ') << " Saw TODO! token in  " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw TODO! token in  "  
+				     << working_file << " at line: " << line << endl;
+				
 			}
 			else if (working_string.rfind("//DONE!!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(high_output_vector, working_string, line, input_file_string, 0);
-				cout << "===" << pad(3, ' ') << " Saw DONE!!! token in " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!!! token in " 
+				     << working_file << " at line: " << line << endl;
+				
 			}
 			else if (working_string.rfind("//DONE!! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(mid_output_vector, working_string, line, input_file_string, 0);
-				cout << "===" << pad(3, ' ') << " Saw DONE!! token in  " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE!! token in  " << working_file 
+				     << " at line: " << line << endl;
+				
 			}
 			else if (working_string.rfind("//DONE! ", 0) == 0)
 			{
 				num_found++;
 				add_to_vector(low_output_vector, working_string, line, input_file_string, 0);
-				cout << "===" << pad(3, ' ') << " Saw DONE! token in  " << working_file << " at line: " << line << endl;
+				cout << add_color("===", G, REG) << pad(3, ' ') << " Saw DONE! token in  " 
+				     << working_file << " at line: " << line << endl;
+				
 			}
 			line++;
 		}
 		if (num_found > 0)
 		{
-			cout << "===" << pad(3, ' ') << " Finished scanning " << working_file << ": " << num_found << " tokens found" << endl;
+			cout << add_color("===", G, REG) << pad(3, ' ') << " Finished scanning " << working_file 
+				 << ": " << num_found << " tokens found" << endl;
+			
 		}
 		else
 		{
-			cout << "===" << pad(3, ' ') << " No tokens found in " << working_file << endl;
+			cout << add_color("===", G, REG) << pad(3, ' ') << " No tokens found in " << working_file << endl;
+			
 		}
 		// cout << "===" << endl;
 		input_file.close();
+		cout << add_color("===", G, REG) << endl;
 	}
-	cout << "=== Directorys scanned successfully" << endl;
-	cout << "=== Your list is located in " << output_file_string << endl;
+	cout << add_color("=== Directorys scanned successfully", G, REG) << endl;
+	cout << add_color("=== Your list is located in ", G, UND) << add_color(output_file_string, B, UND) << endl;
+	
 
 	// End in console section of the program
 
