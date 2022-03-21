@@ -39,7 +39,7 @@ void add_to_vector(vector<pair<pair<string, int>, pair<string, int>>> &output_ve
 	string temp = "";
 	string temp2 = "";
 
-	for (int i = 2; i < working_string.size(); i++)
+	for (size_t i = 2; i < working_string.size(); i++)
 	{
 		temp += working_string[i];
 	}
