@@ -1,6 +1,6 @@
 # The ToDo Tool
 
-By Tyler Fanuele
+> By Tyler Fanuele
 
 ## About
 
@@ -45,7 +45,7 @@ when your project is built the todo list will also be updated.
     - Type `todo` into the command line to create a todo list from your current path!
 
 | Command | Description | Example|
-| ----------- | ----------- | ----------- |
+| ------- | ----------- | ---------------------- |
 | `-o "file path` | The -o command will set the file to output the todo file to | `$ todo -o output.txt` |
 | `-e "file path` | This command will pass a file to ToDo that will tell it what files or directories to ignore in the current directory. | `$ todo -e exceptions.txt` |
 | `-l` | This command lets the user print the full paths of all of the files in the current directory. | `$ todo -l` |
