@@ -2,8 +2,9 @@
     Copyright 2022 Tyler Fanuele
 */
 #include <unistd.h>
-#include <ctime>
+
 #include <algorithm>
+#include <ctime>
 #include <experimental/filesystem>
 #include <filesystem>
 #include <fstream>
