@@ -41,9 +41,17 @@ string pad(int len, char c) {
     return ret;
 }
 
+string pad(string working_string, char c) {
+    string ret = "";
+    for (size_t i = 0; i < working_string.length(); i++) {
+        ret += c;
+    }
+    return ret;
+}
+
 string error_message(string message) {
     string ret_string = "|ERROR| " + message;
-    return ret_string;
+    return add_color(ret_string, R, BLD);
 }
 
 void add_to_vector(
@@ -119,11 +127,40 @@ int main(int argc, char **argv) {
     string estring;
     ifstream E_file;
     string Estring;
+    string exception_file_string = working_dir + "/" + ".exceptions";
     vector<string> directory_vector;
+
+    cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
+    cout << add_color("=== Operational directory: ", G, REG)
+         << add_color(working_dir, G, REG) << endl;
+    cout << add_color("===", G, REG) << endl;
+
+    if (filesystem::exists(filesystem::status(exception_file_string))) {
+        cout << add_color("=== Exceptions: ", G, REG) << add_color(".exceptions found", B, REG)<< endl;
+        cout << add_color("===", G, REG) << endl;
+        exceptions.push_back(exception_file_string);
+        e_file.open(exception_file_string);
+        while (getline(e_file, estring)) {
+            if (filesystem::exists(filesystem::status(estring))) {
+                exceptions.push_back(estring);
+                if (filesystem::is_directory(filesystem::status(estring))) {
+                    for (auto &Efile :
+                         filesystem::recursive_directory_iterator(estring)) {
+                        exceptions.push_back(Efile.path());
+                    }
+                } else {
+                    exceptions.push_back(estring);
+                }
+            }
+        }
+        e_file.close();
+
+    } else {
+        cout << add_color("=== Exceptions: .exceptions not found", R, BLD) << endl;
+    }
 
     // DONE!! add exception files
     // TODO! maybe
-
 
     while ((opt = getopt(argc, argv, "o:e:lL:h")) != -1) {
         switch (opt) {
@@ -145,12 +182,17 @@ int main(int argc, char **argv) {
                 output_file_string = optarg;
                 break;
             case 'e':
-                e_file.open(optarg);
+                exception_file_string = optarg;
+                e_file.open(exception_file_string);
                 Estring = working_dir + "/" + optarg;
                 if (!filesystem::exists(filesystem::status(Estring))) {
                     cout << "Exception file: \" " << Estring
                          << "\" does not exist!" << endl;
                     return -1;
+                } else {
+                    cout << add_color("=== Exceptions: ", G, REG)
+                         << add_color("Exception file given", B, REG) << endl;
+                    cout << add_color("===", G, REG) << endl;
                 }
                 exceptions.push_back(Estring);
 
@@ -196,7 +238,8 @@ int main(int argc, char **argv) {
 
     for (auto &file : filesystem::recursive_directory_iterator(working_dir)) {
         if (!(find(exceptions.begin(), exceptions.end(),
-                   file.path().string()) != exceptions.end())) {
+                   file.path().string()) != exceptions.end()) &&
+            !filesystem::is_directory(filesystem::status(file))) {
             directory_vector.push_back(file.path());
         }
     }
@@ -205,11 +248,6 @@ int main(int argc, char **argv) {
         cout << error_message("Empty directory or no good items!") << endl;
         return -1;
     }
-
-    cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
-    cout << add_color("=== Operational directory: ", G, REG)
-         << add_color(working_dir, G, REG) << endl;
-    cout << add_color("===", G, REG) << endl;
 
     // end getops, start reading files
     ifstream input_file;

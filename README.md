@@ -46,10 +46,10 @@ when your project is built the todo list will also be updated.
 
 | Command | Description | Example|
 | ------- | ----------- | ---------------------- |
-| `-o "file path` | The -o command will set the file to output the todo file to | `$ todo -o output.txt` |
-| `-e "file path` | This command will pass a file to ToDo that will tell it what files or directories to ignore in the current directory. | `$ todo -e exceptions.txt` |
+| `-o "file path"` | The -o command will set the file to output the todo file to | `$ todo -o output.txt` |
+| `-e "file path"` | This command will pass a file to ToDo that will tell it what files or directories to ignore in the current directory. | `$ todo -e exceptions.txt` |
 | `-l` | This command lets the user print the full paths of all of the files in the current directory. | `$ todo -l` |
-|`-L "directory path` | This command lets the user print the full paths of all of the files in a argument specified directory. | `$ todo -L /bar/foo` |
+|`-L "directory path"` | This command lets the user print the full paths of all of the files in a argument specified directory. | `$ todo -L /bar/foo` |
 
 ## Examples
 
@@ -68,6 +68,9 @@ when your project is built the todo list will also be updated.
 ## Exceptions
 
 ### How to make a exception file
+
+By default the program will look for an exception file called '.exceptions'. If this is not found the program will either run
+without exceptions or use the user defined exceptions file with 'e'.
 
 1. To make a exception file create a file with a name of your choosing, ex.txt for example
    Then figure out the full paths of the files or directories you want to exclude. ToDo include `-l` and `-L` to
