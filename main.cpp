@@ -109,6 +109,7 @@ int main(int argc, char **argv) {
             exceptions.push_back(gfile.path());
         }
     }
+    // TODO!!! hmm
     string input_file_string;  // = argv[1];
     string output_file_string = "list.todo";
 
@@ -121,6 +122,8 @@ int main(int argc, char **argv) {
     vector<string> directory_vector;
 
     // DONE!! add exception files
+    // TODO! maybe
+
 
     while ((opt = getopt(argc, argv, "o:e:lL:h")) != -1) {
         switch (opt) {
@@ -233,7 +236,7 @@ int main(int argc, char **argv) {
                 remove(working_string.begin(), working_string.end(), '\t'),
                 working_string.end());
 
-            if (working_string.rfind("//TODO!!! ", 0) == 0) {
+            if (working_string.find("// TODO!!! ") != string::npos) {
                 num_found++;
                 add_to_vector(high_output_vector, working_string, line,
                               input_file_string, 1);
@@ -241,35 +244,35 @@ int main(int argc, char **argv) {
                 cout << add_color("===", G, REG) << pad(3, ' ')
                      << " Saw TODO!!! token in " << working_file
                      << " at line: " << line << endl;
-            } else if (working_string.rfind("//TODO!! ", 0) == 0) {
+            } else if (working_string.find("// TODO!! ") != string::npos) {
                 num_found++;
                 add_to_vector(mid_output_vector, working_string, line,
                               input_file_string, 1);
                 cout << add_color("===", G, REG) << pad(3, ' ')
                      << " Saw TODO!! token in " << working_file
                      << " at line: " << line << endl;
-            } else if (working_string.rfind("//TODO! ", 0) == 0) {
+            } else if (working_string.find("// TODO! ") != string::npos) {
                 num_found++;
                 add_to_vector(low_output_vector, working_string, line,
                               input_file_string, 1);
                 cout << add_color("===", G, REG) << pad(3, ' ')
                      << " Saw TODO! token in  " << working_file
                      << " at line: " << line << endl;
-            } else if (working_string.rfind("//DONE!!! ", 0) == 0) {
+            } else if (working_string.find("// DONE!!! ") != string::npos) {
                 num_found++;
                 add_to_vector(high_output_vector, working_string, line,
                               input_file_string, 0);
                 cout << add_color("===", G, REG) << pad(3, ' ')
                      << " Saw DONE!!! token in " << working_file
                      << " at line: " << line << endl;
-            } else if (working_string.rfind("//DONE!! ", 0) == 0) {
+            } else if (working_string.find("// DONE!! ") != string::npos) {
                 num_found++;
                 add_to_vector(mid_output_vector, working_string, line,
                               input_file_string, 0);
                 cout << add_color("===", G, REG) << pad(3, ' ')
                      << " Saw DONE!! token in  " << working_file
                      << " at line: " << line << endl;
-            } else if (working_string.rfind("//DONE! ", 0) == 0) {
+            } else if (working_string.find("// DONE! ") != string::npos) {
                 num_found++;
                 add_to_vector(low_output_vector, working_string, line,
                               input_file_string, 0);

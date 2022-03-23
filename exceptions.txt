@@ -1,0 +1,12 @@
+/Users/tyler/Git/ToDo/list.todo
+/Users/tyler/Git/ToDo/todo
+/Users/tyler/Git/ToDo/README.md
+/Users/tyler/Git/ToDo/.vscode
+/Users/tyler/Git/ToDo/main.o
+/Users/tyler/Git/ToDo/main.cpp
+/Users/tyler/Git/ToDo/LICENCE
+/Users/tyler/Git/ToDo/cleanup.sh
+/Users/tyler/Git/ToDo/setup.sh
+/Users/tyler/Git/ToDo/Makefile
+/Users/tyler/Git/ToDo/.gitignore
+/Users/tyler/Git/ToDo/examples/example_exception_file.txt

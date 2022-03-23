@@ -1,13 +1,13 @@
 #include <iostream>
 
-//TODO! include more librarys!!!!
+// TODO! include more librarys!!!!
 
 using namespace std;
 
-//TODO!! finish program
+// TODO!! finish program
 
 int main()
 {
 
-	//TODO!!! no return value
+	// TODO!!! no return value
 }
