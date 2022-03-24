@@ -23,6 +23,7 @@ using namespace std;
 #define UND (4)
 #define REG (0)
 
+// Allows for formatting of string with color an format
 string add_color(string wString, int color, int formatting) {
     string temp1 =
         "\033[" + to_string(formatting) + ";" + to_string(color) + "m";
@@ -30,6 +31,7 @@ string add_color(string wString, int color, int formatting) {
     return temp1;
 }
 
+// pads to len length of type c char
 string pad(int len, char c) {
     string ret = "";
     if (len < 0) {
@@ -41,6 +43,7 @@ string pad(int len, char c) {
     return ret;
 }
 
+// pads to the length of the working_string with c char
 string pad(string working_string, char c) {
     string ret = "";
     for (size_t i = 0; i < working_string.length(); i++) {
@@ -49,11 +52,14 @@ string pad(string working_string, char c) {
     return ret;
 }
 
+// formatts the message string as a error message
 string error_message(string message) {
     string ret_string = "|ERROR| " + message;
     return add_color(ret_string, R, BLD);
 }
 
+// adds the working string (line), line number, file name and demand level
+// to the vector
 void add_to_vector(
     vector<pair<pair<string, int>, pair<string, int>>> &output_vector,
     string working_string, int line, string file_name, int demand) {
@@ -68,6 +74,7 @@ void add_to_vector(
         pair<string, int>(temp, demand), pair<string, int>(file_name, line)));
 }
 
+// prints vector
 void print_vector(
     vector<pair<pair<string, int>, pair<string, int>>> &output_vector,
     ostream &out) {
@@ -86,6 +93,7 @@ void print_vector(
     }
 }
 
+// prints the help command (-h)
 void print_help() {
     cout << "ToDo list tool" << endl;
     cout << "By Tyler Fanuele" << endl;
@@ -111,14 +119,18 @@ int main(int argc, char **argv) {
     string working_dir = filesystem::current_path();
     string git_dir = working_dir + "/.git";
     vector<string> exceptions;
+
+    // add .git files to exceptions
+
     if (filesystem::is_directory(filesystem::status(git_dir))) {
         exceptions.push_back(git_dir);
         for (auto &gfile : filesystem::recursive_directory_iterator(git_dir)) {
             exceptions.push_back(gfile.path());
         }
     }
-    // TODO!!! hmm
-    string input_file_string;  // = argv[1];
+
+    string input_file_string;
+    // set default output file name
     string output_file_string = "list.todo";
 
     ifstream r_file;
@@ -127,16 +139,32 @@ int main(int argc, char **argv) {
     string estring;
     ifstream E_file;
     string Estring;
+    // sets default exceptions file name
     string exception_file_string = working_dir + "/" + ".exceptions";
     vector<string> directory_vector;
 
+    /*
+    mascott image
+           __
+      (___()'`;
+      /,    /`
+jgs   \\"--\\
+    */
+    // prints title screen
+    cout << add_color("===           __", G, REG) << endl;
+    cout << add_color("===      (___()'`;", G, REG) << endl;
+    cout << add_color("===      /,    /`", G, REG) << endl;
+    cout << add_color("===      \\\\'--\\\\", G, REG) << endl;
     cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
     cout << add_color("=== Operational directory: ", G, REG)
          << add_color(working_dir, G, REG) << endl;
     cout << add_color("===", G, REG) << endl;
 
+    // adds all exceptions files from default file if there, continue if not
+
     if (filesystem::exists(filesystem::status(exception_file_string))) {
-        cout << add_color("=== Exceptions: ", G, REG) << add_color(".exceptions found", B, REG)<< endl;
+        cout << add_color("=== Exceptions: ", G, REG)
+             << add_color(".exceptions found", B, REG) << endl;
         cout << add_color("===", G, REG) << endl;
         exceptions.push_back(exception_file_string);
         e_file.open(exception_file_string);
@@ -156,22 +184,21 @@ int main(int argc, char **argv) {
         e_file.close();
 
     } else {
-        cout << add_color("=== Exceptions: .exceptions not found", R, BLD) << endl;
+        cout << add_color("=== Exceptions: .exceptions not found", R, BLD)
+             << endl;
     }
 
-    // DONE!! add exception files
-    // TODO! maybe
-
+    // get options from command line.
     while ((opt = getopt(argc, argv, "o:e:lL:h")) != -1) {
         switch (opt) {
-            case '?':
+            case '?':  // unknown option
                 cout << error_message("Unknown option given") << endl;
                 return -1;
                 break;
-            case 'h':
+            case 'h':  // help function
                 print_help();
                 return 0;
-            case 'o':
+            case 'o':  // change output file name
                 if (optarg == input_file_string) {
                     cout << error_message(
                                 "Output file string is the same as the input "
@@ -181,10 +208,11 @@ int main(int argc, char **argv) {
                 }
                 output_file_string = optarg;
                 break;
-            case 'e':
+            case 'e':  // add non default exceptions file
                 exception_file_string = optarg;
                 e_file.open(exception_file_string);
                 Estring = working_dir + "/" + optarg;
+                // check if given exceptions file exists
                 if (!filesystem::exists(filesystem::status(Estring))) {
                     cout << "Exception file: \" " << Estring
                          << "\" does not exist!" << endl;
@@ -196,6 +224,7 @@ int main(int argc, char **argv) {
                 }
                 exceptions.push_back(Estring);
 
+                // add all lines to exceptions vector
                 while (getline(e_file, estring)) {
                     if (filesystem::exists(filesystem::status(estring))) {
                         exceptions.push_back(estring);
@@ -213,7 +242,7 @@ int main(int argc, char **argv) {
                 }
                 e_file.close();
                 break;
-            case 'l':
+            case 'l':  // list tool
                 cout << "ToDo full file path tool" << endl;
                 cout << "Printing all of the full file paths from your "
                         "directory..."
@@ -223,7 +252,7 @@ int main(int argc, char **argv) {
                     cout << "->" << lfile.path() << endl;
                 }
                 return 0;
-            case 'L':
+            case 'L':  // list specific directory tool
                 cout << "ToDo full file path tool" << endl;
                 cout << "Printing all of the full file paths from specified "
                         "directory..."
@@ -236,6 +265,8 @@ int main(int argc, char **argv) {
         }
     }
 
+    // if the path is not in the exceptions vetor, add to vector of working
+    // paths
     for (auto &file : filesystem::recursive_directory_iterator(working_dir)) {
         if (!(find(exceptions.begin(), exceptions.end(),
                    file.path().string()) != exceptions.end()) &&
@@ -244,6 +275,7 @@ int main(int argc, char **argv) {
         }
     }
 
+    // check if we have anything at all to look through
     if (directory_vector.size() < 1) {
         cout << error_message("Empty directory or no good items!") << endl;
         return -1;
@@ -258,6 +290,7 @@ int main(int argc, char **argv) {
     vector<pair<pair<string, int>, pair<string, int>>> high_output_vector;
     output_file.open(output_file_string);
 
+    // loop through each path in vector
     for (auto working_file : directory_vector) {
         input_file_string = working_file;
         cout << add_color("=== Scanning ", G, UND)
@@ -267,13 +300,17 @@ int main(int argc, char **argv) {
 
         int line = 1;
         int num_found = 0;
+        // loop through each line in that file
         while (getline(input_file, working_string)) {
             string temp = "";
             string temp2 = "";
+            // take out leading tabs
             working_string.erase(
                 remove(working_string.begin(), working_string.end(), '\t'),
                 working_string.end());
 
+            //look for each token string in each line.
+            // TODO!! make this easier with a function, its too big right now
             if (working_string.find("// TODO!!! ") != string::npos) {
                 num_found++;
                 add_to_vector(high_output_vector, working_string, line,
@@ -320,6 +357,7 @@ int main(int argc, char **argv) {
             }
             line++;
         }
+        // print number found if > 0 and none if not
         if (num_found > 0) {
             cout << add_color("===", G, REG) << pad(3, ' ')
                  << " Finished scanning " << working_file << ": " << num_found
@@ -332,6 +370,7 @@ int main(int argc, char **argv) {
         input_file.close();
         cout << add_color("===", G, REG) << endl;
     }
+    // display closing text
     cout << add_color("=== Directorys scanned successfully", G, REG) << endl;
     cout << add_color("=== Your list is located in ", G, UND)
          << add_color(output_file_string, B, UND) << endl;
