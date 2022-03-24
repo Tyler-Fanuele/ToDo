@@ -95,20 +95,38 @@ void print_vector(
 
 // prints the help command (-h)
 void print_help() {
-    cout << "ToDo list tool" << endl;
-    cout << "By Tyler Fanuele" << endl;
-    cout << endl << "-o \"filename\" -> tells ToDo where to output." << endl;
+    cout << add_color("=== ToDo Help Tool", G, REG) << endl
+         << add_color("===", G, REG) << endl;
+    cout << add_color("=== Printing help...", G, REG) << endl
+         << add_color("===", G, REG) << endl << add_color("===", G, REG);
     cout << endl
-         << "-e \"filename\" -> tells ToDo where in your directory" << endl
-         << "                 the exception file is." << endl;
+         << add_color("=== -o \"filename\" -> tells ToDo where to output.", G,
+                      REG)
+         << endl
+         << add_color("===", G, REG);
     cout << endl
-         << "-l            -> lists the full paths of every file in your "
-            "current direcory."
+         << add_color(
+                "=== -e \"filename\" -> tells ToDo where in your directory", G,
+                REG)
+         << endl
+         << add_color("===                 the exception file is.", G, REG)
+         << endl
+         << add_color("===", G, REG);
+    cout << endl
+         << add_color(
+                "=== -l            -> lists the full paths of every file in your "
+                "current direcory.",
+                G, REG)
+         << endl
+         << add_color("===", G, REG);
+    cout << endl
+         << add_color(
+                "=== -L \"filename\" -> lists the full paths of every file in "
+                "the "
+                "argument specified "
+                "directory.",
+                G, REG)
          << endl;
-    cout << endl
-         << "-L \"filename\" -> lists the full paths of every file in the "
-            "argument specified "
-         << "directory." << endl;
 }
 
 int main(int argc, char **argv) {
@@ -155,6 +173,7 @@ jgs   \\"--\\
     cout << add_color("===      (___()'`;", G, REG) << endl;
     cout << add_color("===      /,    /`", G, REG) << endl;
     cout << add_color("===      \\\\'--\\\\", G, REG) << endl;
+    cout << add_color("===", G, REG) << endl;
     cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
     cout << add_color("=== Operational directory: ", G, REG)
          << add_color(working_dir, G, REG) << endl;
@@ -214,8 +233,10 @@ jgs   \\"--\\
                 Estring = working_dir + "/" + optarg;
                 // check if given exceptions file exists
                 if (!filesystem::exists(filesystem::status(Estring))) {
-                    cout << "Exception file: \" " << Estring
-                         << "\" does not exist!" << endl;
+                    cout << add_color("=== Exception file: \" " + Estring +
+                                          "\" does not exist!",
+                                      R, BLD)
+                         << endl;
                     return -1;
                 } else {
                     cout << add_color("=== Exceptions: ", G, REG)
@@ -243,23 +264,38 @@ jgs   \\"--\\
                 e_file.close();
                 break;
             case 'l':  // list tool
-                cout << "ToDo full file path tool" << endl;
-                cout << "Printing all of the full file paths from your "
-                        "directory..."
-                     << endl;
+                cout << add_color("=== ToDo full file path tool", G, REG)
+                     << endl
+                     << add_color("===", G, REG) << endl;
+                cout << add_color(
+                            "=== Printing all of the full file paths from your "
+                            "directory...",
+                            G, REG)
+                     << endl
+                     << add_color("===", G, REG) << endl;
                 for (const auto &lfile :
                      filesystem::directory_iterator(working_dir)) {
-                    cout << "->" << lfile.path() << endl;
+                    cout << add_color("===", G, REG)
+                         << add_color(" -> " + lfile.path().string(), B, REG)
+                         << endl;
                 }
                 return 0;
             case 'L':  // list specific directory tool
-                cout << "ToDo full file path tool" << endl;
-                cout << "Printing all of the full file paths from specified "
-                        "directory..."
-                     << endl;
+                cout << add_color("=== ToDo full file path tool", G, REG)
+                     << endl
+                     << add_color("===", G, REG) << endl;
+                cout << add_color(
+                            "=== Printing all of the full file paths from "
+                            "specified "
+                            "directory...",
+                            G, REG)
+                     << endl
+                     << add_color("===", G, REG) << endl;
                 for (const auto &lfile :
                      filesystem::directory_iterator(optarg)) {
-                    cout << "-> " << lfile.path() << endl;
+                    cout << add_color("===", G, REG)
+                         << add_color(" -> " + lfile.path().string(), B, REG)
+                         << endl;
                 }
                 return 0;
         }
@@ -309,8 +345,8 @@ jgs   \\"--\\
                 remove(working_string.begin(), working_string.end(), '\t'),
                 working_string.end());
 
-            //look for each token string in each line.
-            // TODO!! make this easier with a function, its too big right now
+            // look for each token string in each line.
+            //  TODO!! make this easier with a function, its too big right now
             if (working_string.find("// TODO!!! ") != string::npos) {
                 num_found++;
                 add_to_vector(high_output_vector, working_string, line,
