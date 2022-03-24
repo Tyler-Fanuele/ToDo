@@ -37,7 +37,7 @@ when your project is built the todo list will also be updated.
     2. Comment `TODO!! 'user message'` for a mid priority task.
     3. Comment `TODO!!! 'user message'` for a high priority task.
 2. Done comments:
-    - Change the `TODO!` comment to `DONE!` to change check off the task.
+    - Change the `TODO!` comment to `DONE!` to check off the task.
    This works for all levels of tasks.
 3. Create a .todo file:
     - This file will allow you to specify the place you would like your todo list to be output to.
