@@ -4,9 +4,11 @@
 
 ## About
 
-The ToDo tool lets the user plan their linux workflow by adding comments to their
+The ToDo tool lets the user plan their linux / mac workflow by adding comments to their
 existing code and making a todo list for unfinished tasks. This tool is meant to work with
 any programming language that allows for `//` comments. Git files are ignored by default.
+
+> Now with support for more languages!
 
 ## Possible ways to use ToDo list tool
 
@@ -31,11 +33,11 @@ when your project is built the todo list will also be updated.
 ## Using the ToDo tool
 
 1. ToDo comments:
-    1. Comment `// TODO! 'user message'` for a low priority task.
-    2. Comment `// TODO!! 'user message'` for a mid priority task.
-    3. Comment `// TODO!!! 'user message'` for a high priority task.
+    1. Comment `TODO! 'user message'` for a low priority task.
+    2. Comment `TODO!! 'user message'` for a mid priority task.
+    3. Comment `TODO!!! 'user message'` for a high priority task.
 2. Done comments:
-    - Change the `// TODO!` comment to `// DONE!` to change check off the task.
+    - Change the `TODO!` comment to `DONE!` to change check off the task.
    This works for all levels of tasks.
 3. Create a .todo file:
     - This file will allow you to specify the place you would like your todo list to be output to.
