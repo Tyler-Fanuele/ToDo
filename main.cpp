@@ -16,6 +16,7 @@
 
 using namespace std;
 
+// used in the add_color function to make colors and formats easier to input
 #define G (32)
 #define R (31)
 #define B (34)
@@ -98,7 +99,8 @@ void print_help() {
     cout << add_color("=== ToDo Help Tool", G, REG) << endl
          << add_color("===", G, REG) << endl;
     cout << add_color("=== Printing help...", G, REG) << endl
-         << add_color("===", G, REG) << endl << add_color("===", G, REG);
+         << add_color("===", G, REG) << endl
+         << add_color("===", G, REG);
     cout << endl
          << add_color("=== -o \"filename\" -> tells ToDo where to output.", G,
                       REG)
@@ -114,7 +116,8 @@ void print_help() {
          << add_color("===", G, REG);
     cout << endl
          << add_color(
-                "=== -l            -> lists the full paths of every file in your "
+                "=== -l            -> lists the full paths of every file in "
+                "your "
                 "current direcory.",
                 G, REG)
          << endl
@@ -127,6 +130,15 @@ void print_help() {
                 "directory.",
                 G, REG)
          << endl;
+}
+
+string command_to_string(int argc, char **argv) {
+    string ret = "";
+    for (int i = 0; i < argc; i++) {
+        ret += argv[i];
+        ret += " ";
+    }
+    return ret;
 }
 
 int main(int argc, char **argv) {
@@ -175,8 +187,16 @@ jgs   \\"--\\
     cout << add_color("===      /,    /`", G, REG) << endl;
     cout << add_color("===      \\\\'--\\\\", G, REG) << endl;
     cout << add_color("===", G, REG) << endl;
-    cout << add_color("=== A todo list tool by Tyler Fanuele", G, UND) << endl;
-    cout << add_color("=== Operational directory: ", G, REG)
+    cout << add_color("=== ToDo, a todo list generator for mac and linux", G,
+                      REG)
+         << endl;
+    cout << add_color("=== Copyright (C) 2022 by Tyler Fanuele", G, REG) << endl
+         << add_color("===", G, REG) << endl;
+    cout << add_color(
+                "=== Command Executed: " + command_to_string(argc, argv), G,
+                REG)
+         << endl;
+    cout << add_color("=== Operational directory -> ", G, REG)
          << add_color(working_dir, G, REG) << endl;
     cout << add_color("===", G, REG) << endl;
 
@@ -190,7 +210,7 @@ jgs   \\"--\\
         e_file.open(exception_file_string);
         while (getline(e_file, estring)) {
             if (filesystem::exists(filesystem::status(estring))) {
-                //exceptions.push_back(estring);
+                // exceptions.push_back(estring);
                 if (filesystem::is_directory(filesystem::status(estring))) {
                     for (auto &Efile :
                          filesystem::recursive_directory_iterator(estring)) {
