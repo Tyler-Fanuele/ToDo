@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
     // entry point, start getopt
     time_t now = time(NULL);
     string dnow = ctime(&now);
-    int opt;
+    int copt;
     string working_dir = filesystem::current_path();
     string git_dir = working_dir + "/.git";
     vector<string> exceptions;

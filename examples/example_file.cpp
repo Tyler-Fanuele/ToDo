@@ -2,7 +2,7 @@
 
 // TODO! include more librarys!!!!
 /*
-	TODO!!! example multy line comment!
+	TODO!!! example multi line comment!
 */
 
 using namespace std;
